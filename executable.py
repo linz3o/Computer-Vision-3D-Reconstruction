@@ -126,6 +126,10 @@ def main():
     for c, cam_pos in enumerate(cam_positions):
         cam_shapes[c].set_multiple_positions([cam_pos], [cam_colors[c]])
 
+    # Set voxel positions based on computed masks
+    voxel_positions, voxel_colors = set_voxel_positions(config['world_width'], config['world_height'], config['world_width'])
+    cube.set_multiple_positions(voxel_positions, voxel_colors)
+
     last_time = glfw.get_time()
     while not glfw.window_should_close(window):
         if config['debug_mode']:

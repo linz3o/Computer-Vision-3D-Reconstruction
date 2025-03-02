@@ -2,6 +2,7 @@ import glm
 from engine.base.shader import Shader
 from OpenGL.GL import *
 from OpenGL.error import NullFunctionError
+import numpy as np
 
 
 class Program:
@@ -73,6 +74,11 @@ class Program:
         glUniformMatrix3fv(self.getUniformLocation(name), 1, GL_FALSE, glm.value_ptr(mat))
 
     def setMat4(self, name, mat):
+    # Check if mat is a numpy ndarray, if so convert it to glm.mat4
+        if isinstance(mat, np.ndarray):
+            mat = glm.mat4(mat)  # Convert numpy array to glm.mat4
+
+            # Now pass the glm.mat4 to glUniformMatrix4fv
         glUniformMatrix4fv(self.getUniformLocation(name), 1, GL_FALSE, glm.value_ptr(mat))
 
 
